@@ -1,20 +1,22 @@
 <ul class="list-group">
   @if (param == null) {
-  <li class="list-group-item list-group-item-action" *ngFor="let brand of list">
-    <p class="container" (click)="brandModelHandler(brand.name)">
+  <li
+    class="list-group-item list-group-item-action"
+    (click)="brandModelHandler(brand.name)"
+    *ngFor="let brand of list"
+  >
+    <p class="container">
       {{ brand.name }}
     </p>
   </li>
-  } @else {
+  } @else { @for (model of models; track $index) {
   <li
     class="list-group-item list-group-item-action"
-    *ngFor="let model of models"
+    *ngIf="param == model.brand.name"
   >
-    @if (param == model.brand.name) {
     <p class="container">
       {{ model.name }}
     </p>
-    }
   </li>
-  }
+  } }
 </ul>
