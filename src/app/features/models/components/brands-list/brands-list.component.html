@@ -1,0 +1,20 @@
+<ul class="list-group">
+  @if (param == null) {
+  <li class="list-group-item list-group-item-action" *ngFor="let brand of list">
+    <p class="container" (click)="brandModelHandler(brand.name)">
+      {{ brand.name }}
+    </p>
+  </li>
+  } @else {
+  <li
+    class="list-group-item list-group-item-action"
+    *ngFor="let model of models"
+  >
+    @if (param == model.brand.name) {
+    <p class="container">
+      {{ model.name }}
+    </p>
+    }
+  </li>
+  }
+</ul>
