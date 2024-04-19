@@ -12,4 +12,10 @@ export class ModelsApiService {
   getList(): Observable<ModelsListItemDto[]> {
     return this.http.get<ModelsListItemDto[]>('http://localhost:3000/models');
   }
+
+  getListByBrandId(value: number): Observable<ModelsListItemDto[]> {
+    return this.http.get<ModelsListItemDto[]>(
+      'http://localhost:3000/models?brandId=' + value
+    );
+  }
 }

@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { BrandsListItemDto } from '../../models/brands-list-item-dto';
 import { BrandsApiService } from '../../services/brands-api.service';
-import { ModelsListItemDto } from '../../models/models-list-item-dto';
-import { ModelsApiService } from '../../services/models-api.service';
+import { ModelsListItemDto } from '../../../models/models/models-list-item-dto';
+import { ModelsApiService } from '../../../models/services/models-api.service';
 
 @Component({
   selector: 'app-brands-list',
@@ -21,7 +21,7 @@ import { ModelsApiService } from '../../services/models-api.service';
 export class BrandsListComponent implements OnInit {
   list!: BrandsListItemDto[];
   models!: ModelsListItemDto[];
-  param!: string;
+  param!: number;
 
   constructor(
     private brandsApiService: BrandsApiService,
@@ -36,9 +36,9 @@ export class BrandsListComponent implements OnInit {
     });
   }
 
-  brandModelHandler(value: string): void {
+  brandModelHandler(value: number): void {
     this.param = value;
-    this.modelsApiService.getList().subscribe((response) => {
+    this.modelsApiService.getListByBrandId(value).subscribe((response) => {
       this.models = response;
       this.change.markForCheck();
       console.log(value);
