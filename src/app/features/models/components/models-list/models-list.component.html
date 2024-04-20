@@ -1,5 +1,11 @@
 <ul class="list-group">
   <li class="list-group-item list-group-item-action" *ngFor="let model of list">
-    <p class="container">{{ model.name }}</p>
+    <div class="container d-flex justify-content-between">
+      <span>{{ model.name }}</span>
+      <div class="ud-buttons d-flex justify-content-between">
+        <button class="btn btn-success">Update</button>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </div>
   </li>
 </ul>

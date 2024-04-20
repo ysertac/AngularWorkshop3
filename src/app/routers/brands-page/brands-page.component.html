@@ -7,4 +7,9 @@
 </div>
 } @else {
 <app-models-list [brandId]="selectedBrandId"> </app-models-list>
+<div class="container my-3">
+  <button class="btn btn-primary" [routerLink]="['/home/createmodel']">
+    New Model
+  </button>
+</div>
 }

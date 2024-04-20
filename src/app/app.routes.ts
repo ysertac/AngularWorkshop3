@@ -6,6 +6,7 @@ import { NotFoundPageComponent } from './routers/not-found-page/not-found-page.c
 import { BrandsPageComponent } from './routers/brands-page/brands-page.component';
 import { CreateBrandPageComponent } from './routers/create-brand-page/create-brand-page.component';
 import { UpdateBrandPageComponent } from './routers/update-brand-page/update-brand-page.component';
+import { CreateModelPageComponent } from './routers/create-model-page/create-model-page.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
       {
         path: 'brands/:id',
         component: UpdateBrandPageComponent,
+      },
+      {
+        path: 'createmodel',
+        component: CreateModelPageComponent,
       },
     ],
   },
