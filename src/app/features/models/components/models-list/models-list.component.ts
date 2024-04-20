@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import { ModelsApiService } from '../../services/models-api.service';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-models-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './models-list.component.html',
   styleUrl: './models-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

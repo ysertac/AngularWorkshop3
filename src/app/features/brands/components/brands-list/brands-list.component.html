@@ -10,11 +10,11 @@
     class="list-group-item list-group-item-action"
     *ngFor="let brand of list"
   >
-    <div class="container d-flex justify-content-between">
+    <div class="container d-flex justify-content-between align-items-center">
       <span>
         {{ brand.name }}
       </span>
-      <div class="ud-buttons d-flex justify-content-between">
+      <div class="ud-buttons d-flex justify-content-between align-items-center">
         <button class="btn btn-success" [routerLink]="[brand.id]">
           Update
         </button>

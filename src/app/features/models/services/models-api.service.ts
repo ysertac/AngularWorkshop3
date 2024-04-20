@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ModelsListItemDto } from '../models/models-list-item-dto';
 import { PostModelRequest } from '../models/post-model-request';
 import { PostModelResponse } from '../models/post-model-response';
+import { UpdateModelRequest } from '../models/update-model-request';
+import { UpdateModelResponse } from '../models/update-model-response';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +25,16 @@ export class ModelsApiService {
   postModel(model: PostModelRequest): Observable<PostModelResponse> {
     return this.http.post<PostModelResponse>(
       'http://localhost:3000/models',
+      model
+    );
+  }
+
+  putModel(
+    model: UpdateModelRequest,
+    modelId: string | null
+  ): Observable<UpdateModelResponse> {
+    return this.http.put<UpdateModelResponse>(
+      'http://localhost:3000/models/' + modelId,
       model
     );
   }

@@ -7,6 +7,7 @@ import { BrandsPageComponent } from './routers/brands-page/brands-page.component
 import { CreateBrandPageComponent } from './routers/create-brand-page/create-brand-page.component';
 import { UpdateBrandPageComponent } from './routers/update-brand-page/update-brand-page.component';
 import { CreateModelPageComponent } from './routers/create-model-page/create-model-page.component';
+import { UpdateModelPageComponent } from './routers/update-model-page/update-model-page.component';
 
 export const routes: Routes = [
   {
@@ -36,8 +37,12 @@ export const routes: Routes = [
         component: UpdateBrandPageComponent,
       },
       {
-        path: 'createmodel',
+        path: 'models/createmodel',
         component: CreateModelPageComponent,
+      },
+      {
+        path: 'models/:id',
+        component: UpdateModelPageComponent,
       },
     ],
   },

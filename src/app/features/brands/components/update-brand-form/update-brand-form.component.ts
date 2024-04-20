@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -27,14 +20,13 @@ import { CommonModule } from '@angular/common';
 })
 export class UpdateBrandFormComponent implements OnInit {
   private brandId: string | null = null;
-  private brandName: string | null = null;
 
   ngOnInit(): void {
     this.brandId = this.route.snapshot.paramMap.get('id');
   }
 
   form: FormGroup = this.fb.group({
-    name: [this.brandId, [Validators.required]],
+    name: ['', [Validators.required]],
   });
 
   constructor(
