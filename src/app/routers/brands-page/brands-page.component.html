@@ -1,0 +1,10 @@
+@if (!isBrandChoosen) {
+<app-brands-list (selectBrand)="onBrandSelect($event)"></app-brands-list>
+<div class="container my-3">
+  <button class="btn btn-primary" [routerLink]="['createbrand']">
+    New Brand
+  </button>
+</div>
+} @else {
+<app-models-list [brandId]="selectedBrandId"> </app-models-list>
+}

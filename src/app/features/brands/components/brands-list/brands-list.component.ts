@@ -3,29 +3,29 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   OnInit,
+  Output,
 } from '@angular/core';
 import { BrandsListItemDto } from '../../models/brands-list-item-dto';
 import { BrandsApiService } from '../../services/brands-api.service';
-import { ModelsListItemDto } from '../../../models/models/models-list-item-dto';
-import { ModelsApiService } from '../../../models/services/models-api.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-brands-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './brands-list.component.html',
   styleUrl: './brands-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrandsListComponent implements OnInit {
-  list!: BrandsListItemDto[];
-  models!: ModelsListItemDto[];
-  param!: number;
+  @Output() selectBrand = new EventEmitter<number | null>();
+
+  list: Array<BrandsListItemDto> = [];
 
   constructor(
     private brandsApiService: BrandsApiService,
-    private modelsApiService: ModelsApiService,
     private change: ChangeDetectorRef
   ) {}
 
@@ -36,12 +36,7 @@ export class BrandsListComponent implements OnInit {
     });
   }
 
-  brandModelHandler(value: number): void {
-    this.param = value;
-    this.modelsApiService.getListByBrandId(value).subscribe((response) => {
-      this.models = response;
-      this.change.markForCheck();
-      console.log(value);
-    });
+  onBrandClick(id: number | null) {
+    this.selectBrand.emit(id);
   }
 }

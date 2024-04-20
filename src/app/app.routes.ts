@@ -3,8 +3,9 @@ import { HomePageComponent } from './routers/home-page/home-page.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { TestPageComponent } from './routers/test-page/test-page.component';
 import { NotFoundPageComponent } from './routers/not-found-page/not-found-page.component';
-import { ModelsListComponent } from './features/models/components/models-list/models-list.component';
-import { BrandsListComponent } from './features/brands/components/brands-list/brands-list.component';
+import { BrandsPageComponent } from './routers/brands-page/brands-page.component';
+import { CreateBrandPageComponent } from './routers/create-brand-page/create-brand-page.component';
+import { UpdateBrandPageComponent } from './routers/update-brand-page/update-brand-page.component';
 
 export const routes: Routes = [
   {
@@ -22,12 +23,16 @@ export const routes: Routes = [
         component: HomePageComponent,
       },
       {
-        path: 'models',
-        component: ModelsListComponent,
+        path: 'brands',
+        component: BrandsPageComponent,
       },
       {
-        path: 'brands',
-        component: BrandsListComponent,
+        path: 'brands/createbrand',
+        component: CreateBrandPageComponent,
+      },
+      {
+        path: 'brands/:id',
+        component: UpdateBrandPageComponent,
       },
     ],
   },

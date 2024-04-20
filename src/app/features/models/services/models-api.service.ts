@@ -9,13 +9,12 @@ import { ModelsListItemDto } from '../models/models-list-item-dto';
 export class ModelsApiService {
   constructor(private http: HttpClient) {}
 
-  getList(): Observable<ModelsListItemDto[]> {
-    return this.http.get<ModelsListItemDto[]>('http://localhost:3000/models');
-  }
+  getList(brandId: number | null = null): Observable<ModelsListItemDto[]> {
+    const requestQueryParams: any = {};
+    if (brandId != null) requestQueryParams.brandId = brandId;
 
-  getListByBrandId(value: number): Observable<ModelsListItemDto[]> {
-    return this.http.get<ModelsListItemDto[]>(
-      'http://localhost:3000/models?brandId=' + value
-    );
+    return this.http.get<ModelsListItemDto[]>('http://localhost:3000/models', {
+      params: requestQueryParams,
+    });
   }
 }

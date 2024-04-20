@@ -1,22 +1,25 @@
 <ul class="list-group">
-  @if (param == null) {
   <li
+    (click)="onBrandClick(null)"
     class="list-group-item list-group-item-action"
-    (click)="brandModelHandler(brand.id)"
+  >
+    <p class="container">All</p>
+  </li>
+  <li
+    (click)="onBrandClick(brand.id)"
+    class="list-group-item list-group-item-action"
     *ngFor="let brand of list"
   >
-    <p class="container">
-      {{ brand.name }}
-    </p>
+    <div class="container d-flex justify-content-between">
+      <span>
+        {{ brand.name }}
+      </span>
+      <div class="ud-buttons d-flex justify-content-between">
+        <button class="btn btn-success" [routerLink]="[brand.id]">
+          Update
+        </button>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </div>
   </li>
-  } @else {
-  <li
-    class="list-group-item list-group-item-action"
-    *ngFor="let model of models"
-  >
-    <p class="container">
-      {{ model.name }}
-    </p>
-  </li>
-  }
 </ul>
