@@ -30,12 +30,6 @@
       id="inputGroupSelect01"
       formControlName="brandName"
     >
-      <!-- @for (brand of allBrands; track $index) { @if (brand.id ==
-      modelToUpdate.brand.id) {
-      <option selected>{{ brand.name }}</option>
-      } @else {
-      <option>{{ brand.name }}</option>
-      } } -->
       <option
         *ngFor="let brand of allBrands"
         [selected]="brand.id == modelToUpdate.brand.id"
