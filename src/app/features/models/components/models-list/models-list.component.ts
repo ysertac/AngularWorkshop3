@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { ModelsApiService } from '../../services/models-api.service';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { DataManageService } from '../../../../shared/services/data-manage.service';
 
 @Component({
   selector: 'app-models-list',
@@ -27,7 +28,9 @@ export class ModelsListComponent implements OnInit, OnChanges {
   list!: ModelsListItemDto[];
   constructor(
     private modelsApiService: ModelsApiService,
-    private change: ChangeDetectorRef
+    private dataManageService: DataManageService,
+    private change: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,5 +60,13 @@ export class ModelsListComponent implements OnInit, OnChanges {
         this.list = response;
         this.change.markForCheck();
       });
+  }
+
+  navigateToUpdate(modelId: number) {
+    const model = this.list.find((item) => {
+      return item.id == modelId;
+    });
+    this.dataManageService.setData(model);
+    this.router.navigate(['/home/models/' + modelId]);
   }
 }

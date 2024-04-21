@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { BrandsListItemDto } from '../../models/brands-list-item-dto';
 import { BrandsApiService } from '../../services/brands-api.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { DataManageService } from '../../../../shared/services/data-manage.service';
 
 @Component({
   selector: 'app-brands-list',
@@ -26,7 +27,9 @@ export class BrandsListComponent implements OnInit {
 
   constructor(
     private brandsApiService: BrandsApiService,
-    private change: ChangeDetectorRef
+    private dataManageService: DataManageService,
+    private change: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +41,13 @@ export class BrandsListComponent implements OnInit {
 
   onBrandClick(id: number | null) {
     this.selectBrand.emit(id);
+  }
+
+  navigateToUpdate(brandId: number) {
+    const brand = this.list.find((item) => {
+      return item.id == brandId;
+    });
+    this.dataManageService.setData(brand);
+    this.router.navigate(['/home/brands/' + brandId]);
   }
 }

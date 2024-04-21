@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,9 +7,10 @@ import {
 } from '@angular/forms';
 import { ModelsApiService } from '../../services/models-api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { PostModelRequest } from '../../models/post-model-request';
 import { CommonModule } from '@angular/common';
 import { UpdateModelRequest } from '../../models/update-model-request';
+import { DataManageService } from '../../../../shared/services/data-manage.service';
+import { ModelsListItemDto } from '../../models/models-list-item-dto';
 
 @Component({
   selector: 'app-update-model-form',
@@ -20,9 +21,32 @@ import { UpdateModelRequest } from '../../models/update-model-request';
 })
 export class UpdateModelFormComponent implements OnInit {
   private modelId: string | null = null;
+  private modelToUpdate: ModelsListItemDto = {
+    id: 0,
+    name: '',
+    brandId: 0,
+    imageUrl: '',
+    modelYear: 0,
+    dailyPrice: 0,
+    brand: {
+      id: 0,
+      name: '',
+    },
+  };
 
   ngOnInit(): void {
     this.modelId = this.route.snapshot.paramMap.get('id');
+    this.dataManageService.data$.subscribe({
+      next: (response) => {
+        console.log(response);
+        this.modelToUpdate = response;
+        this.form.get('name')?.setValue(this.modelToUpdate.name);
+        this.form.get('brandId')?.setValue(this.modelToUpdate.brandId);
+        this.form.get('modelYear')?.setValue(this.modelToUpdate.modelYear);
+        this.form.get('dailyPrice')?.setValue(this.modelToUpdate.dailyPrice);
+        this.change.markForCheck();
+      },
+    });
   }
 
   form: FormGroup = this.fb.group({
@@ -35,7 +59,9 @@ export class UpdateModelFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modelsApiService: ModelsApiService,
+    private dataManageService: DataManageService,
     private router: Router,
+    private change: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {}
 
@@ -44,8 +70,11 @@ export class UpdateModelFormComponent implements OnInit {
       brandId: this.form.value.brandId,
       name: this.form.value.name,
       modelYear: this.form.value.modelYear,
+      imageUrl: this.modelToUpdate.imageUrl,
       dailyPrice: this.form.value.dailyPrice,
+      brand: this.modelToUpdate.brand,
     };
+
     this.modelsApiService.putModel(request, this.modelId).subscribe({
       next: (response) => {
         console.info('Response:', response);
