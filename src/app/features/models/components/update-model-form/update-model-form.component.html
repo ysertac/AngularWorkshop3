@@ -11,7 +11,7 @@
       aria-describedby="inputGroup-sizing-default"
     />
   </div>
-  <div class="input-group my-3">
+  <!-- <div class="input-group my-3">
     <span class="input-group-text" id="inputGroup-sizing-default"
       >Brand Id</span
     >
@@ -22,6 +22,27 @@
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-default"
     />
+  </div> -->
+  <div class="input-group my-3">
+    <label class="input-group-text" for="inputGroupSelect01">Brand Name</label>
+    <select
+      class="form-select"
+      id="inputGroupSelect01"
+      formControlName="brandName"
+    >
+      <!-- @for (brand of allBrands; track $index) { @if (brand.id ==
+      modelToUpdate.brand.id) {
+      <option selected>{{ brand.name }}</option>
+      } @else {
+      <option>{{ brand.name }}</option>
+      } } -->
+      <option
+        *ngFor="let brand of allBrands"
+        [selected]="brand.id == modelToUpdate.brand.id"
+      >
+        {{ brand.name }}
+      </option>
+    </select>
   </div>
   <div class="input-group">
     <span class="input-group-text" id="inputGroup-sizing-default"

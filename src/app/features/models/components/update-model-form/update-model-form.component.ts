@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { UpdateModelRequest } from '../../models/update-model-request';
 import { DataManageService } from '../../../../shared/services/data-manage.service';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
+import { BrandsListItemDto } from '../../../brands/models/brands-list-item-dto';
+import { BrandsApiService } from '../../../brands/services/brands-api.service';
 
 @Component({
   selector: 'app-update-model-form',
@@ -21,7 +23,9 @@ import { ModelsListItemDto } from '../../models/models-list-item-dto';
 })
 export class UpdateModelFormComponent implements OnInit {
   private modelId: string | null = null;
-  private modelToUpdate: ModelsListItemDto = {
+  allBrands: Array<BrandsListItemDto> = [];
+
+  modelToUpdate: ModelsListItemDto = {
     id: 0,
     name: '',
     brandId: 0,
@@ -36,12 +40,17 @@ export class UpdateModelFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.modelId = this.route.snapshot.paramMap.get('id');
+    this.brandsApiService.getList().subscribe((response) => {
+      this.allBrands = response;
+      this.change.markForCheck();
+      console.log(this.allBrands);
+    });
     this.dataManageService.data$.subscribe({
       next: (response) => {
         console.log(response);
         this.modelToUpdate = response;
         this.form.get('name')?.setValue(this.modelToUpdate.name);
-        this.form.get('brandId')?.setValue(this.modelToUpdate.brandId);
+        this.form.get('brandName')?.setValue(this.modelToUpdate.brand.name);
         this.form.get('modelYear')?.setValue(this.modelToUpdate.modelYear);
         this.form.get('dailyPrice')?.setValue(this.modelToUpdate.dailyPrice);
         this.change.markForCheck();
@@ -50,7 +59,7 @@ export class UpdateModelFormComponent implements OnInit {
   }
 
   form: FormGroup = this.fb.group({
-    brandId: ['', [Validators.required]],
+    brandName: ['', [Validators.required]],
     name: ['', [Validators.required]],
     modelYear: ['', [Validators.required]],
     dailyPrice: ['', [Validators.required]],
@@ -59,6 +68,7 @@ export class UpdateModelFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modelsApiService: ModelsApiService,
+    private brandsApiService: BrandsApiService,
     private dataManageService: DataManageService,
     private router: Router,
     private change: ChangeDetectorRef,
@@ -66,13 +76,16 @@ export class UpdateModelFormComponent implements OnInit {
   ) {}
 
   updateModel() {
+    const brand = this.allBrands.find(
+      (brand) => brand.name == this.form.value.brandName
+    );
     const request: UpdateModelRequest = {
-      brandId: this.form.value.brandId,
+      brandId: brand!.id,
       name: this.form.value.name,
       modelYear: this.form.value.modelYear,
       imageUrl: this.modelToUpdate.imageUrl,
       dailyPrice: this.form.value.dailyPrice,
-      brand: this.modelToUpdate.brand,
+      brand: brand!,
     };
 
     this.modelsApiService.putModel(request, this.modelId).subscribe({
