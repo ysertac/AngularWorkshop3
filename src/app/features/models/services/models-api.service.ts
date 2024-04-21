@@ -13,9 +13,13 @@ import { UpdateModelResponse } from '../models/update-model-response';
 export class ModelsApiService {
   constructor(private http: HttpClient) {}
 
-  getList(brandId: number | null = null): Observable<ModelsListItemDto[]> {
+  getList(
+    brandId: number | null = null,
+    searchBrandName: string | null = null
+  ): Observable<ModelsListItemDto[]> {
     const requestQueryParams: any = {};
     if (brandId != null) requestQueryParams.brandId = brandId;
+    if (searchBrandName) requestQueryParams.name_like = searchBrandName;
 
     return this.http.get<ModelsListItemDto[]>('http://localhost:3000/models', {
       params: requestQueryParams,

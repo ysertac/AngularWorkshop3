@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ModelsListComponent implements OnInit, OnChanges {
   @Input() brandId: number | null = null;
-  //@Input() searchBrandName: string | null = null;
+  @Input() searchBrandName: string | null = null;
 
   list!: ModelsListItemDto[];
   constructor(
@@ -41,12 +41,21 @@ export class ModelsListComponent implements OnInit, OnChanges {
     ) {
       this.getList();
     }
+    if (
+      changes['searchBrandName'] &&
+      changes['searchBrandName'].currentValue !==
+        changes['searchBrandName'].previousValue
+    ) {
+      this.getList();
+    }
   }
 
   private getList() {
-    this.modelsApiService.getList(this.brandId).subscribe((response) => {
-      this.list = response;
-      this.change.markForCheck();
-    });
+    this.modelsApiService
+      .getList(this.brandId, this.searchBrandName)
+      .subscribe((response) => {
+        this.list = response;
+        this.change.markForCheck();
+      });
   }
 }
