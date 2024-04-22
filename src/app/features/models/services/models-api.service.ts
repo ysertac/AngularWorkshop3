@@ -13,6 +13,12 @@ import { UpdateModelResponse } from '../models/update-model-response';
 export class ModelsApiService {
   constructor(private http: HttpClient) {}
 
+  getModel(id: number): Observable<ModelsListItemDto> {
+    return this.http.get<ModelsListItemDto>(
+      'http://localhost:3000/models/' + id
+    );
+  }
+
   getList(
     brandId: number | null = null,
     searchBrandName: string | null = null

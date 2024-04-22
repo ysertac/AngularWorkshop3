@@ -12,11 +12,12 @@ import { ModelsApiService } from '../../services/models-api.service';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
 import { Router, RouterLink } from '@angular/router';
 import { DataManageService } from '../../../../shared/services/data-manage.service';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-models-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PaginationComponent],
   templateUrl: './models-list.component.html',
   styleUrl: './models-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
