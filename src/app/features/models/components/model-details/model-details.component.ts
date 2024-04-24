@@ -1,11 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
 import { ModelsApiService } from '../../services/models-api.service';
+import { CommonModule } from '@angular/common';
+import { VatAddPipe } from '../../../../core/pipes/vat-add.pipe';
 
 @Component({
   selector: 'app-model-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, VatAddPipe],
   templateUrl: './model-details.component.html',
   styleUrl: './model-details.component.scss',
 })

@@ -16,11 +16,12 @@ import { PostModelRequest } from '../../models/post-model-request';
 import { CommonModule } from '@angular/common';
 import { BrandsApiService } from '../../../brands/services/brands-api.service';
 import { BrandsListItemDto } from '../../../brands/models/brands-list-item-dto';
+import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
 
 @Component({
   selector: 'app-create-model-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, ErrorMessagesPipe],
   templateUrl: './create-model-form.component.html',
   styleUrl: './create-model-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,10 +37,13 @@ export class CreateModelFormComponent implements OnInit {
     });
   }
   form: FormGroup = this.fb.group({
-    brandName: ['', [Validators.required]],
-    name: ['', [Validators.required]],
-    modelYear: ['', [Validators.required]],
-    dailyPrice: ['', [Validators.required]],
+    brandName: ['', [Validators.required, Validators.minLength(3)]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    modelYear: [
+      '',
+      [Validators.required, Validators.min(2000), Validators.max(2024)],
+    ],
+    dailyPrice: ['', [Validators.required, Validators.min(1250)]],
   });
 
   constructor(
@@ -79,11 +83,13 @@ export class CreateModelFormComponent implements OnInit {
 
   onFormSubmit() {
     console.log(this.form);
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       console.error('form is invalid');
       return;
+    } else {
+      this.createModel();
+      this.router.navigate(['/home/brands']);
     }
-    this.createModel();
-    this.router.navigate(['/home/brands']);
   }
 }

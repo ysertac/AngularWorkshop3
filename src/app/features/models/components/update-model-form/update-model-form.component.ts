@@ -6,18 +6,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { ModelsApiService } from '../../services/models-api.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UpdateModelRequest } from '../../models/update-model-request';
 import { DataManageService } from '../../../../shared/services/data-manage.service';
 import { ModelsListItemDto } from '../../models/models-list-item-dto';
 import { BrandsListItemDto } from '../../../brands/models/brands-list-item-dto';
 import { BrandsApiService } from '../../../brands/services/brands-api.service';
+import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
 
 @Component({
   selector: 'app-update-model-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, ErrorMessagesPipe],
   templateUrl: './update-model-form.component.html',
   styleUrl: './update-model-form.component.scss',
 })
@@ -39,7 +40,9 @@ export class UpdateModelFormComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.modelId = this.route.snapshot.paramMap.get('id');
+    this.route.params.subscribe(
+      (response: Params) => (this.modelId = response['id'])
+    );
     this.brandsApiService.getList().subscribe((response) => {
       this.allBrands = response;
       this.change.markForCheck();
@@ -60,9 +63,12 @@ export class UpdateModelFormComponent implements OnInit {
 
   form: FormGroup = this.fb.group({
     brandName: ['', [Validators.required]],
-    name: ['', [Validators.required]],
-    modelYear: ['', [Validators.required]],
-    dailyPrice: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    modelYear: [
+      '',
+      [Validators.required, Validators.min(2000), Validators.max(2024)],
+    ],
+    dailyPrice: ['', [Validators.required, Validators.min(1250)]],
   });
 
   constructor(
@@ -70,8 +76,8 @@ export class UpdateModelFormComponent implements OnInit {
     private modelsApiService: ModelsApiService,
     private brandsApiService: BrandsApiService,
     private dataManageService: DataManageService,
-    private router: Router,
     private change: ChangeDetectorRef,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -104,11 +110,13 @@ export class UpdateModelFormComponent implements OnInit {
 
   onFormSubmit() {
     console.log(this.form);
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       console.error('form is invalid');
       return;
+    } else {
+      this.updateModel();
+      this.router.navigate(['/home/brands']);
     }
-    this.updateModel();
-    this.router.navigate(['/home/brands']);
   }
 }

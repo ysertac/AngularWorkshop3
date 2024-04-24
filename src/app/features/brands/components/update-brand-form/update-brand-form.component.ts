@@ -16,11 +16,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DataManageService } from '../../../../shared/services/data-manage.service';
 import { BrandsListItemDto } from '../../models/brands-list-item-dto';
+import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
 
 @Component({
   selector: 'app-update-brand-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, ErrorMessagesPipe],
   templateUrl: './update-brand-form.component.html',
   styleUrl: './update-brand-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +45,7 @@ export class UpdateBrandFormComponent implements OnInit {
   }
 
   form: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
   });
 
   constructor(
@@ -76,10 +77,14 @@ export class UpdateBrandFormComponent implements OnInit {
 
   onFormSubmit() {
     console.log(this.form);
+    console.log(this.form.get('name')?.touched);
+    console.log(this.form.get('name')?.dirty);
+    this.form.markAsTouched();
     if (this.form.invalid) {
       console.error('form is invalid');
+    } else {
+      this.updateBrand();
+      this.router.navigate(['/home/brands']);
     }
-    this.updateBrand();
-    this.router.navigate(['/home/brands']);
   }
 }

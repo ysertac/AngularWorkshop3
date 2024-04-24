@@ -11,6 +11,9 @@
       aria-describedby="inputGroup-sizing-default"
     />
   </div>
+  <div *ngIf="form.invalid && form.get('name')?.touched">
+    <p>{{ form.get("name")?.errors | errorMessages }}</p>
+  </div>
   <!-- <div class="input-group my-3">
     <span class="input-group-text" id="inputGroup-sizing-default"
       >Brand Id</span
@@ -38,6 +41,9 @@
       </option>
     </select>
   </div>
+  <div *ngIf="form.invalid && form.get('brandName')?.touched">
+    <p>{{ form.get("brandName")?.errors | errorMessages }}</p>
+  </div>
   <div class="input-group">
     <span class="input-group-text" id="inputGroup-sizing-default"
       >Model Year</span
@@ -50,6 +56,9 @@
       aria-describedby="inputGroup-sizing-default"
     />
   </div>
+  <div *ngIf="form.invalid && form.get('modelYear')?.touched">
+    <p>{{ form.get("modelYear")?.errors | errorMessages }}</p>
+  </div>
   <div class="input-group my-3">
     <span class="input-group-text" id="inputGroup-sizing-default"
       >Daily Price</span
@@ -61,6 +70,9 @@
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-default"
     />
+  </div>
+  <div *ngIf="form.invalid && form.get('dailyPrice')?.touched">
+    <p>{{ form.get("dailyPrice")?.errors | errorMessages }}</p>
   </div>
   <button type="submit" class="btn btn-success">Update Model</button>
 </form>

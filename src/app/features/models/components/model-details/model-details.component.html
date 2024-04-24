@@ -6,7 +6,7 @@
       {{ modelDetails.brand.name }}
     </p>
     <p class="card-text">
-      {{ modelDetails.dailyPrice }}
+      {{ modelDetails.dailyPrice | vatAdd : 20 | currency : "₺" }}
     </p>
     <p class="card-text">
       <small class="text-body-secondary">{{ modelDetails.modelYear }}</small>

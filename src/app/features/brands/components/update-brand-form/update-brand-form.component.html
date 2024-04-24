@@ -11,5 +11,8 @@
       aria-describedby="inputGroup-sizing-default"
     />
   </div>
+  <div *ngIf="form.invalid && form.get('name')?.touched">
+    <p>{{ form.get("name")?.errors | errorMessages }}</p>
+  </div>
   <button type="submit" class="btn btn-success mt-3">Update Brand</button>
 </form>
