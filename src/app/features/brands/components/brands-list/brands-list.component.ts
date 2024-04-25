@@ -11,11 +11,13 @@ import { BrandsListItemDto } from '../../models/brands-list-item-dto';
 import { BrandsApiService } from '../../services/brands-api.service';
 import { Router, RouterLink } from '@angular/router';
 import { DataManageService } from '../../../../shared/services/data-manage.service';
+import { MultipleDirective } from '../../../../core/directives/multiple.directive';
+import { WelcomeDirective } from '../../../../core/directives/welcome.directive';
 
 @Component({
   selector: 'app-brands-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MultipleDirective, WelcomeDirective],
   templateUrl: './brands-list.component.html',
   styleUrl: './brands-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

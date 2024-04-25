@@ -10,11 +10,20 @@ import { PostBrandRequest } from '../../models/post-brand-request';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
+import { ButtonDirective } from '../../../../core/directives/button.directive';
+import { NoCharacterInputDirective } from '../../../../core/directives/no-character-input.directive';
 
 @Component({
   selector: 'app-create-brand-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, ErrorMessagesPipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    ErrorMessagesPipe,
+    NoCharacterInputDirective,
+    ButtonDirective,
+  ],
   templateUrl: './create-brand-form.component.html',
   styleUrl: './create-brand-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

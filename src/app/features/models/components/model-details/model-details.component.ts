@@ -3,11 +3,12 @@ import { ModelsListItemDto } from '../../models/models-list-item-dto';
 import { ModelsApiService } from '../../services/models-api.service';
 import { CommonModule } from '@angular/common';
 import { VatAddPipe } from '../../../../core/pipes/vat-add.pipe';
+import { HighlightDirective } from '../../../../core/directives/highlight.directive';
 
 @Component({
   selector: 'app-model-details',
   standalone: true,
-  imports: [CommonModule, VatAddPipe],
+  imports: [CommonModule, VatAddPipe, HighlightDirective],
   templateUrl: './model-details.component.html',
   styleUrl: './model-details.component.scss',
 })

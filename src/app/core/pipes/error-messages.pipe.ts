@@ -13,11 +13,11 @@ export class ErrorMessagesPipe implements PipeTransform {
       if (errors['required']) {
         return 'This field is required';
       } else if (errors['minlength']) {
-        return 'This field must has minimum 3 characters';
+        return `This field must has minimum ${errors['minlength'].requiredLength} characters`;
       } else if (errors['min']) {
-        return 'This field can not be lesser than min value';
+        return `This field can not be lesser than ${errors['min'].min}`;
       } else if (errors['max']) {
-        return 'This field can not be lesser than max value';
+        return `This field can not be bigger than ${errors['max'].max}`;
       } else {
         return '';
       }
