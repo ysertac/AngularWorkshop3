@@ -4,6 +4,8 @@ import { MainLayoutComponent } from '../../shared/layouts/main-layout/main-layou
 import { CounterComponentComponent } from '../../shared/components/counter-component/counter-component.component';
 import { WelcomeDirective } from '../../core/directives/welcome.directive';
 import { BrandsListComponent } from '../../features/brands/components/brands-list/brands-list.component';
+import { RouterModule } from '@angular/router';
+import { MultipleDirective } from '../../core/directives/multiple.directive';
 
 @Component({
   selector: 'app-home-page',
@@ -14,6 +16,8 @@ import { BrandsListComponent } from '../../features/brands/components/brands-lis
     CounterComponentComponent,
     WelcomeDirective,
     BrandsListComponent,
+    RouterModule,
+    MultipleDirective,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',

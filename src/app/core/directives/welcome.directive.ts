@@ -1,21 +1,13 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef,
-} from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[appWelcome]',
   standalone: true,
 })
 export class WelcomeDirective {
-  @Input('appWelcomeThen') content!: any;
   @Input('appWelcome') set delay(time: number) {
+    //this.viewContainer.clear();
     setTimeout(() => {
-      this.viewContainer.clear();
       document.getElementById('welcome')?.remove();
       this.viewContainer.createEmbeddedView(this.template);
     }, time);
