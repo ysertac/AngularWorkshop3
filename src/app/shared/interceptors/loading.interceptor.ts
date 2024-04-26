@@ -11,6 +11,4 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
       }
     })
   );
-
-  return next(req);
 };

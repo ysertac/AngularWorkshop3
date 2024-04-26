@@ -14,6 +14,4 @@ export const timeInterceptor: HttpInterceptorFn = (req, next) => {
       }
     })
   );
-
-  return next(req);
 };
