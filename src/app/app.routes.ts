@@ -12,6 +12,7 @@ import { ModelDetailsPageComponent } from './routers/model-details-page/model-de
 import { CustomersPageComponent } from './routers/customers-page/customers-page.component';
 import { CarsPageComponent } from './routers/cars-page/cars-page.component';
 import { securedRouteGuard } from './shared/guards/secured-route.guard';
+import { formGuard } from './shared/guards/form.guard';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,7 @@ export const routes: Routes = [
       {
         path: 'models/createmodel',
         component: CreateModelPageComponent,
+        canDeactivate: [formGuard],
       },
       {
         path: 'models/:id',
@@ -76,3 +78,10 @@ export const routes: Routes = [
     component: NotFoundPageComponent,
   },
 ];
+
+//! Angular'da Route Guard Eventlerini Araştırınız ve notlar tutunuz.
+//? Kullanıcı bir formu doldurup sayfadan ayrılmaya çalıştığında, değişikliklerin kaybolacağını uyararak onay alacak bir guard yapısı hazırlayınız.
+//? Http isteğinde bir hata gerçekleştiğinde ekranda hata gösteren bir interceptor oluşturunuz. (örneğin https://www.npmjs.com/package/ngx-toastr kullanabilirsiniz)
+//? Her HTTP isteğinin ne kadar sürede tamamlandığını ölçen bir Interceptor oluşturun. Bu, performans sorunlarını tespit etmek için faydalı olabilir.
+//todo Http isteği gerçekleşirken ekranda yükleme yapıldığına dair bir loader overlay'i gösteren interceptor. (ek bir servis oluşturmanız gerekebilir)
+//todo Github adresini bizimle paylaşınız.

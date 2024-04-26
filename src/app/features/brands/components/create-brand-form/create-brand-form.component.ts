@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
 import { ButtonDirective } from '../../../../core/directives/button.directive';
 import { NoCharacterInputDirective } from '../../../../core/directives/no-character-input.directive';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-brand-form',
@@ -38,6 +39,7 @@ export class CreateBrandFormComponent {
   constructor(
     private fb: FormBuilder,
     private brandsApiService: BrandsApiService,
+    private toastr: ToastrService,
     private router: Router
   ) {}
 
@@ -55,6 +57,7 @@ export class CreateBrandFormComponent {
       complete: () => {
         console.info('Brand created succesfully');
         this.form.reset();
+        this.toastr.success('Brand created successfully');
       },
     });
   }

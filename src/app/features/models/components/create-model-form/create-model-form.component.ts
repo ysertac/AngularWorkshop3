@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { BrandsApiService } from '../../../brands/services/brands-api.service';
 import { BrandsListItemDto } from '../../../brands/models/brands-list-item-dto';
 import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
+import { DataManageService } from '../../../../shared/services/data-manage.service';
 
 @Component({
   selector: 'app-create-model-form',
@@ -34,6 +35,9 @@ export class CreateModelFormComponent implements OnInit {
       this.allBrands = response;
       this.change.markForCheck();
       console.log(this.allBrands);
+      this.form.valueChanges.subscribe(() => {
+        this.dataManageService.setHasChanged(true);
+      });
     });
   }
   form: FormGroup = this.fb.group({
@@ -50,6 +54,7 @@ export class CreateModelFormComponent implements OnInit {
     private fb: FormBuilder,
     private modelsApiService: ModelsApiService,
     private brandsApiService: BrandsApiService,
+    private dataManageService: DataManageService,
     private router: Router,
     private change: ChangeDetectorRef
   ) {}
