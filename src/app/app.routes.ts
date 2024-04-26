@@ -11,6 +11,7 @@ import { UpdateModelPageComponent } from './routers/update-model-page/update-mod
 import { ModelDetailsPageComponent } from './routers/model-details-page/model-details-page.component';
 import { CustomersPageComponent } from './routers/customers-page/customers-page.component';
 import { CarsPageComponent } from './routers/cars-page/cars-page.component';
+import { securedRouteGuard } from './shared/guards/secured-route.guard';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,7 @@ export const routes: Routes = [
       {
         path: 'brands/createbrand',
         component: CreateBrandPageComponent,
+        canActivate: [securedRouteGuard],
       },
       {
         path: 'brands/:id',
@@ -67,6 +69,10 @@ export const routes: Routes = [
   },
   {
     path: '**',
+    redirectTo: 'not-found',
+  },
+  {
+    path: 'not-found',
     component: NotFoundPageComponent,
   },
 ];
