@@ -37,10 +37,12 @@ export const routes: Routes = [
         path: 'brands/createbrand',
         component: CreateBrandPageComponent,
         canActivate: [securedRouteGuard],
+        canDeactivate: [formGuard],
       },
       {
         path: 'brands/:id',
         component: UpdateBrandPageComponent,
+        canDeactivate: [formGuard],
       },
       {
         path: 'models/createmodel',
@@ -50,6 +52,7 @@ export const routes: Routes = [
       {
         path: 'models/:id',
         component: UpdateModelPageComponent,
+        canDeactivate: [formGuard],
       },
       {
         path: 'models/details/:id',

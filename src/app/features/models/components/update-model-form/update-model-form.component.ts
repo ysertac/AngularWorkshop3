@@ -48,16 +48,21 @@ export class UpdateModelFormComponent implements OnInit {
       this.change.markForCheck();
       console.log(this.allBrands);
     });
-    this.dataManageService.data$.subscribe({
-      next: (response) => {
-        console.log(response);
-        this.modelToUpdate = response;
-        this.form.get('name')?.setValue(this.modelToUpdate.name);
-        this.form.get('brandName')?.setValue(this.modelToUpdate.brand.name);
-        this.form.get('modelYear')?.setValue(this.modelToUpdate.modelYear);
-        this.form.get('dailyPrice')?.setValue(this.modelToUpdate.dailyPrice);
-        this.change.markForCheck();
-      },
+    this.dataManageService.data$
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.modelToUpdate = response;
+          this.form.get('name')?.setValue(this.modelToUpdate.name);
+          this.form.get('brandName')?.setValue(this.modelToUpdate.brand.name);
+          this.form.get('modelYear')?.setValue(this.modelToUpdate.modelYear);
+          this.form.get('dailyPrice')?.setValue(this.modelToUpdate.dailyPrice);
+          this.change.markForCheck();
+        },
+      })
+      .unsubscribe();
+    this.form.valueChanges.subscribe(() => {
+      this.dataManageService.setHasChanged(true);
     });
   }
 
@@ -116,6 +121,7 @@ export class UpdateModelFormComponent implements OnInit {
       return;
     } else {
       this.updateModel();
+      this.dataManageService.setHasChanged(false);
       this.router.navigate(['/home/brands']);
     }
   }

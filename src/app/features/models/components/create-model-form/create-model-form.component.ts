@@ -35,9 +35,9 @@ export class CreateModelFormComponent implements OnInit {
       this.allBrands = response;
       this.change.markForCheck();
       console.log(this.allBrands);
-      this.form.valueChanges.subscribe(() => {
-        this.dataManageService.setHasChanged(true);
-      });
+    });
+    this.form.valueChanges.subscribe(() => {
+      this.dataManageService.setHasChanged(true);
     });
   }
   form: FormGroup = this.fb.group({

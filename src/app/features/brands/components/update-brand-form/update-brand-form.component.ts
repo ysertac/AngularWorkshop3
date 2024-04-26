@@ -34,13 +34,18 @@ export class UpdateBrandFormComponent implements OnInit {
   };
   ngOnInit(): void {
     this.brandId = this.route.snapshot.paramMap.get('id');
-    this.dataManageService.data$.subscribe({
-      next: (response) => {
-        console.log(response);
-        this.brandToUpdate = response;
-        this.form.get('name')?.setValue(this.brandToUpdate.name);
-        this.change.markForCheck();
-      },
+    this.dataManageService.data$
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.brandToUpdate = response;
+          this.form.get('name')?.setValue(this.brandToUpdate.name);
+          this.change.markForCheck();
+        },
+      })
+      .unsubscribe();
+    this.form.valueChanges.subscribe(() => {
+      this.dataManageService.setHasChanged(true);
     });
   }
 
@@ -84,6 +89,7 @@ export class UpdateBrandFormComponent implements OnInit {
       console.error('form is invalid');
     } else {
       this.updateBrand();
+      this.dataManageService.setHasChanged(false);
       this.router.navigate(['/home/brands']);
     }
   }

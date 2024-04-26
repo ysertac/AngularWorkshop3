@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +18,7 @@ import { ErrorMessagesPipe } from '../../../../core/pipes/error-messages.pipe';
 import { ButtonDirective } from '../../../../core/directives/button.directive';
 import { NoCharacterInputDirective } from '../../../../core/directives/no-character-input.directive';
 import { ToastrService } from 'ngx-toastr';
+import { DataManageService } from '../../../../shared/services/data-manage.service';
 
 @Component({
   selector: 'app-create-brand-form',
@@ -29,7 +35,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './create-brand-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateBrandFormComponent {
+export class CreateBrandFormComponent implements OnInit {
   hasFormSubmit: boolean = false;
 
   form: FormGroup = this.fb.group({
@@ -39,9 +45,16 @@ export class CreateBrandFormComponent {
   constructor(
     private fb: FormBuilder,
     private brandsApiService: BrandsApiService,
+    private dataManageService: DataManageService,
     private toastr: ToastrService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe(() => {
+      this.dataManageService.setHasChanged(true);
+    });
+  }
 
   createBrand() {
     const request: PostBrandRequest = {
