@@ -7,6 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './shared/interceptors/auth.interceptor';
 import { requestErrorInterceptor } from './shared/interceptors/request-error.interceptor';
 import { timeInterceptor } from './shared/interceptors/time.interceptor';
+import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
         authInterceptor,
         requestErrorInterceptor,
         timeInterceptor,
+        loadingInterceptor,
       ])
     ),
   ],
