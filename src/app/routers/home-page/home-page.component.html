@@ -1,14 +1,9 @@
-<div id="welcome" class="container">
-  <h1 *appMultiple="3">Welcome User!</h1>
-  <p>Thank you for signing up. You are now part of our community.</p>
-  <a
-    [routerLink]="['/home/cars']"
-    routerLinkActive="router-link-active"
-    class="btn"
-    >Continue</a
-  >
+<div class="container" *appWelcome="welcomePage">
+  <h1>Welcome</h1>
 </div>
-<div *appWelcome="3000" class="container">
-  <h1>Rent A Car</h1>
-  <p>Find the best car for you</p>
-</div>
+<ng-template #welcomePage>
+  <div class="container">
+    <h1>Rent A Car</h1>
+    <p class="fw-bold">Find the best car for you</p>
+  </div>
+</ng-template>
