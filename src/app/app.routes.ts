@@ -83,5 +83,5 @@ export const routes: Routes = [
 //? Kullanıcı bir formu doldurup sayfadan ayrılmaya çalıştığında, değişikliklerin kaybolacağını uyararak onay alacak bir guard yapısı hazırlayınız.
 //? Http isteğinde bir hata gerçekleştiğinde ekranda hata gösteren bir interceptor oluşturunuz. (örneğin https://www.npmjs.com/package/ngx-toastr kullanabilirsiniz)
 //? Her HTTP isteğinin ne kadar sürede tamamlandığını ölçen bir Interceptor oluşturun. Bu, performans sorunlarını tespit etmek için faydalı olabilir.
-//todo Http isteği gerçekleşirken ekranda yükleme yapıldığına dair bir loader overlay'i gösteren interceptor. (ek bir servis oluşturmanız gerekebilir)
-//todo Github adresini bizimle paylaşınız.
+//? Http isteği gerçekleşirken ekranda yükleme yapıldığına dair bir loader overlay'i gösteren interceptor. (ek bir servis oluşturmanız gerekebilir)
+//? Github adresini bizimle paylaşınız.
